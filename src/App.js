@@ -1,9 +1,10 @@
 import './App.css';
+import LoginForm from './components/LoginForm';
 
 function App() {
   return (
     <div className="app">
-    Test Assessify
+    <LoginForm/>
     </div>
   );
 }

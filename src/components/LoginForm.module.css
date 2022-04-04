@@ -1,0 +1,33 @@
+.LoginTop{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 40px;
+}
+
+.img{
+    height: auto;
+    width: auto;
+    max-height: 100px;
+    max-width: 200px;
+}
+.LoginWrap{
+    padding: 20px 60px;
+}
+.LoginFormCard{
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid gray;
+}
+
+.LoginDetail{
+    padding: 20px 0;
+    text-align: center;
+    font-family: "Avenir";
+}
+
+@media only screen and (max-width: 600px) {
+    .LoginWrap{
+        padding: 20px ;
+    }
+}

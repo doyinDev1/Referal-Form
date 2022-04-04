@@ -1,0 +1,40 @@
+.Name{
+    display: flex;
+    gap: 0.8rem;
+}
+.NameInfo{
+    margin-bottom: 10px;
+}
+.GenderDOB{
+    display: flex;
+    gap: 0.8rem;
+
+}
+.StateOrigin{
+    display: flex;
+    gap: 0.8rem;
+
+}
+.University{
+    display: flex;
+    gap: 0.8rem;
+
+}
+@media only screen and (max-width: 600px) {
+   .Name{
+flex-direction: column;
+   }
+   .GenderDOB{
+    flex-direction: column;
+
+}
+.StateOrigin{
+    flex-direction: column;
+
+}
+.University{
+    flex-direction: column;
+
+}
+
+  }
