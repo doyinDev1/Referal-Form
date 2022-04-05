@@ -1,7 +1,9 @@
 import React from 'react'
+import RegistrationSuccess from '../pages/RegistrationSuccess'
 import FormBottom from './FormBottom'
 // import BasicForm from './BasicForm'
 import FormComponent from './FormComponent'
+import FormSuccess from './FormSuccess'
 // import Form from './FormComponent'
 import classes from './LoginForm.module.css'
 
@@ -21,8 +23,8 @@ const LoginForm = () => {
             </div>
             <div className={classes.LoginDetails}>
 
-<p>Plese Complete all the details on the form below and submit</p>
-</div>
+                <p>Please Complete all the details on the form below and submit</p>
+            </div>
             <div className={classes.LoginWrap}>
 
                 <div className={classes.LoginFormCard}>

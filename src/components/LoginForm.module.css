@@ -42,11 +42,33 @@
         font-size: 15px;
     }
 }
-@media only screen and (min-width: 900px) {
+
+@media only screen and (max-width: 819px) {
     .LoginWrap {
- padding: 20px 42px;
+        padding: 20px 31px;
+        /* display: none; */
+    }
+ }
+/* @media only screen and (max-width: 900px) {
+    .LoginWrap {
+        padding: 20px 31px;
 }
  }
+
+ @media only screen and (max-width: 1022px) {
+    .LoginWrap {
+    padding: 20px 45px;
+}
+ }
+
+ @media only screen and (max-width: 1112px) {
+    .LoginWrap {
+    padding: 20px 119px;
+}
+ } */
+
+
+
 
 
 /* @media only screen and (min-width: 2160px) {
@@ -65,15 +87,102 @@
         padding: 20px 262px;
     }
 } */
-/* @media only screen and (max-width: 3600px) and (min-width: 900px) {
+
+
+/* @media only screen and (max-width: 900px) and (min-width: 3790px) {
     .LoginWrap {
 padding: 20px 421px;
     }
 } */
 
-@media only screen and (min-width: 3790px) {
+
+
+@media only screen and (min-width: 1200px) {
+
+    .LoginWrap {
+        padding: 20px 228px;
+    }
+    .UnderGrad{
+        flex-direction: column;
+    }   
+}
+@media only screen and (min-width: 1800px) {
+
+    .LoginWrap {
+        padding: 20px 472px;
+    }
+    .UnderGrad{
+        flex-direction: column;
+    }   
+}
+@media only screen and (min-width: 2400px) {
+
+    .LoginWrap {
+        padding: 20px 548px;
+    }
+    .UnderGrad{
+        flex-direction: column;
+    }   
+}
+
+
+@media only screen and (min-width: 2643px) {
+
+    .LoginWrap {
+        
+        padding: 20px 782px;
+    }
+    .UnderGrad{
+        flex-direction: column;
+    }   
+}
+
+
+
+
+@media only screen and (min-width: 2745px) {
+
+    .LoginWrap {
+        padding: 20px 848px
+    }
+    .UnderGrad{
+        flex-direction: column;
+    }   
+}
+
+
+
+
+
+@media only screen and (min-width: 2800px) {
+
+    .LoginWrap {
+        padding: 20px 892px;
+    }
+    .UnderGrad{
+        flex-direction: column;
+    }   
+}
+
+
+
+@media only screen and (min-width: 3000px) {
+
+    .LoginWrap {
+        padding: 20px 959px;
+    }
+    .UnderGrad{
+        flex-direction: column;
+    }   
+}
+
+
+/* @media only screen and (min-width: 3790px) {
     .LoginWrap {
         padding: 20px 1374px ;
     }
-}
+    .UnderGrad{
+        flex-direction: column;
+    }
+} */
 

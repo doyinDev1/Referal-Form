@@ -12,30 +12,30 @@ import { DatePickerField } from './DatePicker'
 import BlackDiv from '../components/BlackDiv'
 import subDays from "date-fns/subDays";
 import addDays from "date-fns/addDays";
-import DatePicker from "react-datepicker";
-
+import { useNavigate } from 'react-router-dom'
 const validationSchema = Yup.object().shape({
     email: Yup.string().required('Your Email is required').email('Please enter a valid email'),
     name: Yup.string().required('Your name is required'),
     firstname: Yup.string().required('Your First name is required'),
     lastname: Yup.string().required('Your Last name is required'),
     number: Yup.number().required('Your Phone number is required'),
-
     // access_code: Yup.string().required('Access code is required'),
 });
 
 const FormComponent = () => {
     const [startDate, setStartDate] = useState(new Date());
+const navigate = useNavigate();
+
 
     return (
         <div>
 
             <Formik
-                initialValues={{ firstname: "", middlename: "", lastname: "", mastersUniversity: "", mastersUniversityOther: "", nyscDate: "", otherUniversity: "", undergraduateUniversity: "", dateofBirth: "", email: "", gradDate: "", courseOfStudy: "" }}
+                initialValues={{ firstname: "", middlename: "", lastname: "", mastersUniversity: "", mastersUniversityOther: "", nyscDate: "", otherUniversity: "", undergraduateUniversity: "", otherUndergradUniversity: "", dateofBirth: "", email: "", gradDate: "", courseOfStudy: "" }}
                 validationSchema={validationSchema}
                 onSubmit={(values, { setSubmitting, resetForm }) => {
                     // When button submits form and form is in the process of submitting, submit button is disabled
-                    setSubmitting(true);
+                    // setSubmitting(true);
 
                     // Simulate submitting to database, shows us values submitted, resets form
                     setTimeout(() => {
@@ -44,7 +44,9 @@ const FormComponent = () => {
                         setSubmitting(false);
                     }, 500);
 
-                }}
+                   console.log("sapaa")
+                }
+            }
             >
                 {({ values,
                     errors,
@@ -145,14 +147,15 @@ const FormComponent = () => {
                                 <p>Date of Birth (mm/dd/yy)</p>
                                 <DatePickerField name="dateofBirth"
                                     value={values.dateofBirth}
-                                    placeholder="Date of Birth"
                                     required
                                     selected={startDate}
                                     onChange={handleChange}
                                     onClick={date => setStartDate(date)}
                                     excludeDateIntervals={[{start: subDays(new Date(), 6574), end: addDays(new Date(), 6574) }]}
                                     onBlur={handleBlur}
+                                                             
                                     className={touched.dateofBirth && errors.dateofBirth ? "error" : null}
+                                    placeholderText="Must br 18yrs or older"
                                     date
                                 />
                             </div>
@@ -594,6 +597,7 @@ const FormComponent = () => {
                                     onBlur={handleBlur}
                                     className={touched.nyscDate && errors.nyscDate ? "error" : null}
                                     date
+                                    placeholderText="Click to select date"
                                 />
                             </div>
                         </div>
@@ -603,6 +607,8 @@ const FormComponent = () => {
                                 Submit
                             </Button>
                         </div>
+
+
                     </Form>
                 )}
             </Formik>

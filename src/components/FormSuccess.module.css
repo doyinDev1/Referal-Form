@@ -1,0 +1,40 @@
+.LoginTop{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 40px;
+}
+
+.img{
+    height: auto;
+    width: auto;
+    max-height: 100px;
+    max-width: 200px;
+}
+
+
+.Card{
+    border-radius: 5px;
+    border: 1px solid #87AA4B;
+    padding: 50px;
+}
+.SuccessDiv{
+    display: flex;
+    align-self: center;
+    justify-content: center;
+}
+
+.CardCover{
+    padding: 20px 100px;
+}
+
+.NoticeCover{
+    padding-top: 30px;
+}
+.Notice{
+    text-align: center;
+    background-color: #87AA4B;
+    color: white;
+    border-radius: 5px;
+    padding: 7px;
+}
