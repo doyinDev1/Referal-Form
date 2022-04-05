@@ -1,4 +1,5 @@
 import React from 'react'
+// import BasicForm from './BasicForm'
 import FormComponent from './FormComponent'
 // import Form from './FormComponent'
 import classes from './LoginForm.module.css'
@@ -23,6 +24,7 @@ const LoginForm = () => {
                 <div className={classes.LoginFormCard}>
                     <FormComponent />
                 </div>
+                {/* <BasicForm/> */}
             </div>
         </>
     )

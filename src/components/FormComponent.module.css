@@ -8,6 +8,8 @@
 .GenderDOB{
     display: flex;
     gap: 0.8rem;
+    /* align-items: center; */
+    /* justify-content: center; */
 
 }
 .StateOrigin{
@@ -20,6 +22,22 @@
     gap: 0.8rem;
 
 }
+
+.NameDeg{
+    display: flex;
+    flex-direction: column;
+}
+.UnderGrad{
+    display: flex;
+    gap: 0.8rem;
+align-items: center;
+}
+
+.ButtonDiv{
+    padding-top: 20px;
+}
+
+
 @media only screen and (max-width: 600px) {
    .Name{
 flex-direction: column;
@@ -35,6 +53,11 @@ flex-direction: column;
 .University{
     flex-direction: column;
 
+}
+.UnderGrad{
+    display: block;
+    gap: 0.8rem;
+align-items: center;
 }
 
   }
