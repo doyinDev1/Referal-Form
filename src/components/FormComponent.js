@@ -1,7 +1,7 @@
 import React from 'react'
 import classes from './FormComponent.module.css'
 import { Form, Button } from 'react-bootstrap'
-// import { useState } from 'react'
+import { useState } from 'react'
 // import { useForm } from 'react-hook-form'
 // import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
@@ -9,33 +9,29 @@ import { Formik, Field } from 'formik';
 // import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { DatePickerField } from './DatePicker'
+import BlackDiv from '../components/BlackDiv'
+import subDays from "date-fns/subDays";
+import addDays from "date-fns/addDays";
+import DatePicker from "react-datepicker";
 
 const validationSchema = Yup.object().shape({
     email: Yup.string().required('Your Email is required').email('Please enter a valid email'),
     name: Yup.string().required('Your name is required'),
-    dateofBirth: Yup.date().default(() => new Date()),
+    firstname: Yup.string().required('Your First name is required'),
+    lastname: Yup.string().required('Your Last name is required'),
+    number: Yup.number().required('Your Phone number is required'),
 
     // access_code: Yup.string().required('Access code is required'),
 });
 
 const FormComponent = () => {
-
-    // const {
-    //     register,
-    //     handleSubmit,
-    //     formState: { errors },
-    // } = useForm({
-    //     resolver: yupResolver(validationSchema),
-    //     mode: 'onSubmit',
-    // });
-
-
+    const [startDate, setStartDate] = useState(new Date());
 
     return (
         <div>
 
             <Formik
-                initialValues={{ firstname: "", middlename: "", lastname: "", mastersUniversity: "", mastersUniversityOther: "", otherUniversity: "", undergraduateUniversity: "", dateofBirth: "", email: "", gradDate: "", courseOfStudy: "" }}
+                initialValues={{ firstname: "", middlename: "", lastname: "", mastersUniversity: "", mastersUniversityOther: "", nyscDate: "", otherUniversity: "", undergraduateUniversity: "", dateofBirth: "", email: "", gradDate: "", courseOfStudy: "" }}
                 validationSchema={validationSchema}
                 onSubmit={(values, { setSubmitting, resetForm }) => {
                     // When button submits form and form is in the process of submitting, submit button is disabled
@@ -47,6 +43,7 @@ const FormComponent = () => {
                         resetForm();
                         setSubmitting(false);
                     }, 500);
+
                 }}
             >
                 {({ values,
@@ -55,31 +52,34 @@ const FormComponent = () => {
                     handleChange,
                     handleBlur,
                     handleSubmit,
+                    onClick,
                     isSubmitting,
-                    setFieldTouched }) => (
+                }) => (
                     <Form onSubmit={handleSubmit} className="mx-auto">
                         {console.log(values)}
+                        <div className="BlackDicContainer" style={{ paddingTop: '20px', paddingBottom: '20px' }}>
+
+                            <BlackDiv
+                                text="Personal Information"
+                            />
+                        </div>
+
                         <div className={classes.Name}>
                             <Form.Group controlId="formName">
                                 <Form.Label>First Name :</Form.Label>
                                 <Form.Control
                                     type="text"
-                                    /* This name property is used to access the value of the form element via values.nameOfElement */
                                     name="firstname"
                                     placeholder="First Name"
-                                    /* Set onChange to handleChange */
                                     onChange={handleChange}
-                                    /* Set onBlur to handleBlur */
                                     onBlur={handleBlur}
-                                    /* Store the value of this input in values.name, make sure this is named the same as the name property on the form element */
+                                    required
                                     value={values.firstname}
-                                    /* Check if the name field (this field) has been touched and if there is an error, if so add the .error class styles defined in the CSS (make the input box red) */
                                     className={touched.firstname && errors.firstname ? "error" : null}
                                 />
-                                {/* Applies the proper error message from validateSchema when the user has clicked the element and there is an error, also applies the .error-message CSS class for styling */}
-                                {touched.firstname && errors.firstname ? (
-                                    <div className="error-message">{errors.firstname}</div>
-                                ) : null}
+                            {touched.firstname && errors.firstname ? (
+                                <div className="error-message">{errors.firstname}</div>
+                            ) : null}
                             </Form.Group>
 
 
@@ -87,19 +87,13 @@ const FormComponent = () => {
                                 <Form.Label>Middle Name :</Form.Label>
                                 <Form.Control
                                     type="text"
-                                    /* This name property is used to access the value of the form element via values.nameOfElement */
                                     name="middlename"
                                     placeholder="Middle Name"
-                                    /* Set onChange to handleChange */
                                     onChange={handleChange}
-                                    /* Set onBlur to handleBlur */
                                     onBlur={handleBlur}
-                                    /* Store the value of this input in values.name, make sure this is named the same as the name property on the form element */
                                     value={values.middlename}
-                                    /* Check if the name field (this field) has been touched and if there is an error, if so add the .error class styles defined in the CSS (make the input box red) */
                                     className={touched.middlename && errors.middlename ? "error" : null}
                                 />
-                                {/* Applies the proper error message from validateSchema when the user has clicked the element and there is an error, also applies the .error-message CSS class for styling */}
                                 {touched.middlename && errors.middlename ? (
                                     <div className="error-message">{errors.middlename}</div>
                                 ) : null}
@@ -109,19 +103,15 @@ const FormComponent = () => {
                                 <Form.Label>Last Name :</Form.Label>
                                 <Form.Control
                                     type="text"
-                                    /* This name property is used to access the value of the form element via values.nameOfElement */
                                     name="lastname"
                                     placeholder="Last Name"
-                                    /* Set onChange to handleChange */
                                     onChange={handleChange}
-                                    /* Set onBlur to handleBlur */
                                     onBlur={handleBlur}
-                                    /* Store the value of this input in values.name, make sure this is named the same as the name property on the form element */
+                                    required
+
                                     value={values.lastname}
-                                    /* Check if the name field (this field) has been touched and if there is an error, if so add the .error class styles defined in the CSS (make the input box red) */
                                     className={touched.lastname && errors.lastname ? "error" : null}
                                 />
-                                {/* Applies the proper error message from validateSchema when the user has clicked the element and there is an error, also applies the .error-message CSS class for styling */}
                                 {touched.lastname && errors.lastname ? (
                                     <div className="error-message">{errors.lastname}</div>
                                 ) : null}
@@ -142,7 +132,8 @@ const FormComponent = () => {
                                 <p>Gender</p>
                                 <Form.Group className="mb-2 " controlId="formBasicText">
 
-                                    <Field style={{ height: 'min-content' }} name="gender" as="select" className="select is-fullwidth">
+                                    <Field style={{ height: 'min-content' }} name="gender" as="select" className="select is-fullwidth" required
+                                    >
                                         <option disabled value="" selected>Select Gender</option>
                                         <option value="Male">Male</option>
                                         <option value="Female">Female</option>
@@ -151,17 +142,21 @@ const FormComponent = () => {
                             </div>
 
                             <div className={classes.GenderDiv}>
-                                <p>Date (mm/dd/yyy)</p>
+                                <p>Date of Birth (mm/dd/yy)</p>
                                 <DatePickerField name="dateofBirth"
                                     value={values.dateofBirth}
                                     placeholder="Date of Birth"
+                                    required
+                                    selected={startDate}
                                     onChange={handleChange}
+                                    onClick={date => setStartDate(date)}
+                                    excludeDateIntervals={[{start: subDays(new Date(), 6574), end: addDays(new Date(), 6574) }]}
                                     onBlur={handleBlur}
                                     className={touched.dateofBirth && errors.dateofBirth ? "error" : null}
                                     date
                                 />
                             </div>
-
+                          
                         </div>
 
                         <Form.Group controlId="formEmail">
@@ -173,12 +168,30 @@ const FormComponent = () => {
                                 onChange={handleChange}
                                 onBlur={handleBlur}
                                 value={values.email}
+                                required
                                 className={touched.email && errors.email ? "error" : null}
                             />
+                        </Form.Group>
                             {touched.email && errors.email ? (
                                 <div className="error-message">{errors.email}</div>
                             ) : null}
+                        <Form.Group controlId="formEmail">
+                            <Form.Label>Phone Number :</Form.Label>
+                            <Form.Control
+                                type="text"
+                                name="number"
+                                placeholder="Phone Number"
+                                onChange={handleChange}
+                                onBlur={handleBlur}
+                                value={values.number}
+                                required
+
+                                className={touched.number && errors.number ? "error" : null}
+                            />
                         </Form.Group>
+                            {touched.number && errors.number ? (
+                                <div className="error-message">{errors.number}</div>
+                            ) : null}
                         <div className={classes.StateOrigin}>
 
                             <div className="GenderDiv">
@@ -222,6 +235,7 @@ const FormComponent = () => {
                                         <option value="Taraba">Taraba</option>
                                         <option value="AYobe">Yobe</option>
                                         <option value="Zamfara">Zamfara</option>
+                                        <option value="FCT Abuja">FCT Abuja</option>
 
                                     </Field>
                                 </Form.Group>
@@ -267,12 +281,18 @@ const FormComponent = () => {
                                         <option value="Taraba">Taraba</option>
                                         <option value="AYobe">Yobe</option>
                                         <option value="Zamfara">Zamfara</option>
+                                        <option value="FCT Abuja">FCT Abuja</option>
 
                                     </Field>
                                 </Form.Group>
                             </div>
                         </div>
+                        <div className="BlackDicContainer" style={{ paddingTop: '20px', paddingBottom: '20px' }}>
 
+                            <BlackDiv
+                                text="Education"
+                            />
+                        </div>
 
                         <div className={classes.NameInfo}>
 
@@ -332,7 +352,7 @@ const FormComponent = () => {
                                 <Form.Control
                                     type="text"
                                     name="otherUniversity"
-                                    placeholder="University Name"
+                                    placeholder="Type in Other"
                                     onChange={handleChange}
                                     onBlur={handleBlur}
                                     value={values.otherUniversity}
@@ -425,7 +445,7 @@ const FormComponent = () => {
                                     ) : null}
                                 </Form.Group>
                                 <div className={classes.GenderDiv}>
-                                    <p>Graduation Date (mm/dd/yyy)</p>
+                                    <p>Graduation Date (mm/dd/yy)</p>
                                     <DatePickerField name="gradDate"
                                         value={values.gradDate}
                                         placeholder="Graduation Date"
@@ -524,7 +544,7 @@ const FormComponent = () => {
                                 <Form.Control
                                     type="text"
                                     name="mastersUniversityOther"
-                                    placeholder="Masters University Name"
+                                    placeholder="Type in Other"
                                     onChange={handleChange}
                                     onBlur={handleBlur}
                                     value={values.mastersUniversityOther}
@@ -535,7 +555,7 @@ const FormComponent = () => {
                                 ) : null}
                             </Form.Group>
                             <div className={classes.GenderDiv}>
-                                <p>Masters Graduation Date (mm/dd/yyy)</p>
+                                <p>Masters Graduation Date (mm/dd/yy)</p>
                                 <DatePickerField name="mastersGradDate"
                                     value={values.gradDate}
                                     placeholder="Masters Graduation Date"
@@ -546,8 +566,40 @@ const FormComponent = () => {
                                 />
                             </div>
                         </div>
+
+                        <div className="BlackDicContainer" style={{ paddingTop: '20px', paddingBottom: '20px' }}>
+
+                            <BlackDiv
+                                text="NYSC"
+                            />
+                        </div>
+                        <div className={classes.GenderDOB}>
+
+                            <div className="GenderDiv">
+                                <p>Have you Completed NYSC?</p>
+                                <Form.Group className="mb-2 " controlId="formBasicText">
+                                    <Field style={{ height: 'min-content' }} name="nysc" as="select" className="select is-fullwidth">
+                                        <option disabled value="" selected>Select Option</option>
+                                        <option value="Yes">Yes</option>
+                                        <option value="No">No</option>
+                                    </Field>
+                                </Form.Group>
+                            </div>
+                            <div className={classes.GenderDiv}>
+                                <p>(If Yes) Pass Out Date:</p>
+                                <DatePickerField name="nyscDate"
+                                    value={values.nyscDate}
+                                    placeholder="NYSC pass out Date"
+                                    onChange={handleChange}
+                                    onBlur={handleBlur}
+                                    className={touched.nyscDate && errors.nyscDate ? "error" : null}
+                                    date
+                                />
+                            </div>
+                        </div>
+
                         <div className={classes.ButtonDiv}>
-                            <Button variant="primary" type="submit" id="do-login">
+                            <Button variant="success" type="submit" size="lg">
                                 Submit
                             </Button>
                         </div>

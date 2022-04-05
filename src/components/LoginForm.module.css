@@ -25,9 +25,55 @@
     text-align: center;
     font-family: "Avenir";
 }
+.LoginDetails p{
+    color: grey;
+    font-size: small;
+    text-align: center;
+    font-family: "Avenir";
+    padding: 0 10px;
+}
+
 
 @media only screen and (max-width: 600px) {
     .LoginWrap{
         padding: 20px ;
     }
+    .LoginDetail h2{
+        font-size: 15px;
+    }
 }
+@media only screen and (min-width: 900px) {
+    .LoginWrap {
+ padding: 20px 42px;
+}
+ }
+
+
+/* @media only screen and (min-width: 2160px) {
+    .LoginWrap {
+     padding: 20px 656px ;
+    }
+}
+
+@media only screen and (min-width: 1800px) {
+    .LoginWrap {
+        padding: 20px 262px;
+    }
+}
+@media only screen and (min-width: 1500px) {
+    .LoginWrap {
+        padding: 20px 262px;
+    }
+} */
+/* @media only screen and (max-width: 3600px) and (min-width: 900px) {
+    .LoginWrap {
+padding: 20px 421px;
+    }
+} */
+
+@media only screen and (min-width: 3790px) {
+    .LoginWrap {
+        padding: 20px 1374px ;
+    }
+}
+

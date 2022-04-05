@@ -1,4 +1,5 @@
 import React from 'react'
+import FormBottom from './FormBottom'
 // import BasicForm from './BasicForm'
 import FormComponent from './FormComponent'
 // import Form from './FormComponent'
@@ -16,15 +17,18 @@ const LoginForm = () => {
             </div>
 
             <div className={classes.LoginDetail}>
-                <h2>Create new candidate account</h2>
+                <h2>Access Bank Graduate Placement Scheme Application Form</h2>
             </div>
+            <div className={classes.LoginDetails}>
 
+<p>Plese Complete all the details on the form below and submit</p>
+</div>
             <div className={classes.LoginWrap}>
 
                 <div className={classes.LoginFormCard}>
                     <FormComponent />
                 </div>
-                {/* <BasicForm/> */}
+                <FormBottom />
             </div>
         </>
     )
