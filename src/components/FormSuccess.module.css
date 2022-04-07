@@ -38,3 +38,33 @@
     border-radius: 5px;
     padding: 7px;
 }
+
+.Notice2{
+    text-align: center;
+    background-color: #87AA4B;
+    color: white;
+    border-radius: 5px;
+    padding: 7px;
+    width: 100px;
+}
+
+.Notice p{
+    color: white;
+}
+.Notice2 p{
+    color: white;
+}
+.Back{
+    padding-top: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+
+@media only screen and (max-width: 600px) {
+
+.CardCover{
+    padding: 20px 30px;
+}
+}

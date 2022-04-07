@@ -1,53 +1,70 @@
 import React from 'react'
 import classes from './FormComponent.module.css'
 import { Form, Button } from 'react-bootstrap'
-import { useState } from 'react'
-// import { useForm } from 'react-hook-form'
-// import { yupResolver } from '@hookform/resolvers/yup';
+import { useState, } from 'react'
 import * as Yup from 'yup';
 import { Formik, Field } from 'formik';
-// import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { DatePickerField } from './DatePicker'
 import BlackDiv from '../components/BlackDiv'
 import subDays from "date-fns/subDays";
 import addDays from "date-fns/addDays";
 import { useNavigate } from 'react-router-dom'
+// import axios from 'axios';
 const validationSchema = Yup.object().shape({
     email: Yup.string().required('Your Email is required').email('Please enter a valid email'),
-    name: Yup.string().required('Your name is required'),
     firstname: Yup.string().required('Your First name is required'),
     lastname: Yup.string().required('Your Last name is required'),
     number: Yup.number().required('Your Phone number is required'),
-    // access_code: Yup.string().required('Access code is required'),
+
 });
 
 const FormComponent = () => {
     const [startDate, setStartDate] = useState(new Date());
-const navigate = useNavigate();
+
+    const navigate = useNavigate();
+
+
+    const routeChange = () => {
+        let path = `success`;
+        navigate(path);
+    }
+
+
+
+    const SendValues = (values) => {
+
+
+        // console.log(values, "sendvsale")
+        // eslint-disable-next-line no-undef
+        routeChange()
+    }
+
 
 
     return (
         <div>
-
+            {/* {console.log(finalData, "finaldata")} */}
             <Formik
                 initialValues={{ firstname: "", middlename: "", lastname: "", mastersUniversity: "", mastersUniversityOther: "", nyscDate: "", otherUniversity: "", undergraduateUniversity: "", otherUndergradUniversity: "", dateofBirth: "", email: "", gradDate: "", courseOfStudy: "" }}
                 validationSchema={validationSchema}
                 onSubmit={(values, { setSubmitting, resetForm }) => {
                     // When button submits form and form is in the process of submitting, submit button is disabled
-                    // setSubmitting(true);
-
-                    // Simulate submitting to database, shows us values submitted, resets form
+                    setSubmitting(true)
+                    //   Simulate submitting to database, shows us values submitted, resets form
                     setTimeout(() => {
-                        alert(JSON.stringify(values, null, 2));
+                        // alert(JSON.stringify(values, null, 2));
                         resetForm();
-                        setSubmitting(false);
-                    }, 500);
+                        // alert("FormSubmitted")
+                        SendValues(values)
+                    }, 2000);
 
-                   console.log("sapaa")
+                    // console.log("i don submit oo")
+                    // setSubmitting(false)
                 }
-            }
+                }
             >
+
                 {({ values,
                     errors,
                     touched,
@@ -57,8 +74,11 @@ const navigate = useNavigate();
                     onClick,
                     isSubmitting,
                 }) => (
+
+
                     <Form onSubmit={handleSubmit} className="mx-auto">
-                        {console.log(values)}
+                        {/* {console.log(values)} */}
+
                         <div className="BlackDicContainer" style={{ paddingTop: '20px', paddingBottom: '20px' }}>
 
                             <BlackDiv
@@ -79,9 +99,9 @@ const navigate = useNavigate();
                                     value={values.firstname}
                                     className={touched.firstname && errors.firstname ? "error" : null}
                                 />
-                            {touched.firstname && errors.firstname ? (
-                                <div className="error-message">{errors.firstname}</div>
-                            ) : null}
+                                {touched.firstname && errors.firstname ? (
+                                    <div className="error-message">{errors.firstname}</div>
+                                ) : null}
                             </Form.Group>
 
 
@@ -151,57 +171,62 @@ const navigate = useNavigate();
                                     selected={startDate}
                                     onChange={handleChange}
                                     onClick={date => setStartDate(date)}
-                                    excludeDateIntervals={[{start: subDays(new Date(), 6574), end: addDays(new Date(), 6574) }]}
+                                    excludeDateIntervals={[{ start: subDays(new Date(), 6574), end: addDays(new Date(), 657499) }]}
                                     onBlur={handleBlur}
-                                                             
+                                    peekNextMonth
+                                    showMonthDropdown
+                                    showYearDropdown
+                                    dropdownMode="select"
                                     className={touched.dateofBirth && errors.dateofBirth ? "error" : null}
-                                    placeholderText="Must br 18yrs or older"
+                                    placeholderText="Must be 18yrs or older"
                                     date
                                 />
                             </div>
-                          
+
                         </div>
+                        <div className={classes.GenderDOB}>
 
-                        <Form.Group controlId="formEmail">
-                            <Form.Label>Email :</Form.Label>
-                            <Form.Control
-                                type="text"
-                                name="email"
-                                placeholder="Email"
-                                onChange={handleChange}
-                                onBlur={handleBlur}
-                                value={values.email}
-                                required
-                                className={touched.email && errors.email ? "error" : null}
-                            />
-                        </Form.Group>
-                            {touched.email && errors.email ? (
-                                <div className="error-message">{errors.email}</div>
-                            ) : null}
-                        <Form.Group controlId="formEmail">
-                            <Form.Label>Phone Number :</Form.Label>
-                            <Form.Control
-                                type="text"
-                                name="number"
-                                placeholder="Phone Number"
-                                onChange={handleChange}
-                                onBlur={handleBlur}
-                                value={values.number}
-                                required
+                            <Form.Group controlId="formEmail">
+                                <Form.Label>Email :</Form.Label>
+                                <Form.Control
+                                    type="text"
+                                    name="email"
+                                    placeholder="Email"
+                                    onChange={handleChange}
+                                    onBlur={handleBlur}
+                                    value={values.email}
+                                    required
+                                    className={touched.email && errors.email ? "error" : null}
+                                />
+                                {touched.email && errors.email ? (
+                                    <div className="error-message">{errors.email}</div>
+                                ) : null}
+                            </Form.Group>
+                            <Form.Group controlId="formEmail">
+                                <Form.Label>Phone Number :</Form.Label>
+                                <Form.Control
+                                    type="text"
+                                    name="number"
+                                    placeholder="Phone Number"
+                                    onChange={handleChange}
+                                    onBlur={handleBlur}
+                                    value={values.number}
+                                    required
 
-                                className={touched.number && errors.number ? "error" : null}
-                            />
-                        </Form.Group>
-                            {touched.number && errors.number ? (
-                                <div className="error-message">{errors.number}</div>
-                            ) : null}
+                                    className={touched.number && errors.number ? "error" : null}
+                                />
+                                {touched.number && errors.number ? (
+                                    <div className="error-message">{errors.number}</div>
+                                ) : null}
+                            </Form.Group>
+                        </div>
                         <div className={classes.StateOrigin}>
 
                             <div className="GenderDiv">
                                 <p style={{ paddingTop: '15px' }}>State of Origin</p>
-                                <Form.Group className="mb-2 " controlId="formBasicText">
+                                <Form.Group className="mb-2 " controlId="formBasicText" required>
 
-                                    <Field style={{ height: 'min-content' }} name="state of origin" as="select" className="select is-fullwidth">
+                                    <Field style={{ height: 'min-content' }} name="stateOfOrigin" as="select" className="select is-fullwidth">
                                         <option selected disabled value="">Select State of Origin</option>
                                         <option value="Abia">Abia </option>
                                         <option value="Adamawa">Adamawa</option>
@@ -241,6 +266,9 @@ const navigate = useNavigate();
                                         <option value="FCT Abuja">FCT Abuja</option>
 
                                     </Field>
+                                    {touched.stateOfOrigin && errors.stateOfOrigin ? (
+                                        <div className="error-message">{errors.stateOfOrigin}</div>
+                                    ) : null}
                                 </Form.Group>
                             </div>
                             <div className={classes.GenderDiv}>
@@ -350,21 +378,24 @@ const navigate = useNavigate();
 
                                 </Field>
                             </Form.Group>
-                            <Form.Group controlId="formName">
-                                <Form.Label> Other University (Other):</Form.Label>
-                                <Form.Control
-                                    type="text"
-                                    name="otherUniversity"
-                                    placeholder="Type in Other"
-                                    onChange={handleChange}
-                                    onBlur={handleBlur}
-                                    value={values.otherUniversity}
-                                    className={touched.otherUniversity && errors.otherUniversity ? "error" : null}
-                                />
-                                {touched.otherUniversity && errors.otherUniversity ? (
-                                    <div className="error-message">{errors.otherUniversity}</div>
-                                ) : null}
-                            </Form.Group>
+                            <div  >
+
+                                <Form.Group controlId="formName" >
+                                    <Form.Label> Other University (Other):</Form.Label>
+                                    <Form.Control
+                                        type="text"
+                                        name="otherUniversity"
+                                        placeholder="Type in Other"
+                                        onChange={handleChange}
+                                        onBlur={handleBlur}
+                                        value={values.otherUniversity}
+                                        className={touched.otherUniversity && errors.otherUniversity ? "error" : null}
+                                    />
+                                    {touched.otherUniversity && errors.otherUniversity ? (
+                                        <div className="error-message">{errors.otherUniversity}</div>
+                                    ) : null}
+                                </Form.Group>
+                            </div>
                         </div>
 
                         <div className={classes.NameDeg}>
@@ -387,11 +418,11 @@ const navigate = useNavigate();
                         </div>
                         <div className={classes.GenderDiv}>
 
-                            <p style={{ marginBottom: 0 }}>Undergraduate University</p>
+                            <p style={{ marginBottom: '-30px' }}>Undergraduate University</p>
                             <div className={classes.UnderGrad}>
 
 
-                                <Form.Group className="mb-2 " controlId="formBasicText">
+                                <Form.Group className="mb-2 " style={{ marginTop: '40px' }} controlId="formBasicText">
                                     <Field style={{ height: 'min-content' }} name="undergraduateUniversity" as="select" className="select is-fullwidth">
                                         <option disabled selected value="">Select Undergraduate University</option>
                                         <option value="University of Lagos"> University of Lagos</option>
@@ -432,21 +463,24 @@ const navigate = useNavigate();
                                         <option value="Others">Others</option>
                                     </Field>
                                 </Form.Group>
-                                <Form.Group controlId="formName">
-                                    <Form.Label>University (Other):</Form.Label>
-                                    <Form.Control
-                                        type="text"
-                                        name="otherUndergradUniversity"
-                                        placeholder="Other University Name"
-                                        onChange={handleChange}
-                                        onBlur={handleBlur}
-                                        value={values.otherUndergradUniversity}
-                                        className={touched.otherUndergradUniversity && errors.otherUndergradUniversity ? "error" : null}
-                                    />
-                                    {touched.otherUndergradUniversity && errors.otherUndergradUniversity ? (
-                                        <div className="error-message">{errors.otherUndergradUniversity}</div>
-                                    ) : null}
-                                </Form.Group>
+                                <div className={classes.Padded}>
+
+                                    <Form.Group controlId="formName" >
+                                        <Form.Label>University (Other):</Form.Label>
+                                        <Form.Control
+                                            type="text"
+                                            name="otherUndergradUniversity"
+                                            placeholder="Other University Name"
+                                            onChange={handleChange}
+                                            onBlur={handleBlur}
+                                            value={values.otherUndergradUniversity}
+                                            className={touched.otherUndergradUniversity && errors.otherUndergradUniversity ? "error" : null}
+                                        />
+                                        {touched.otherUndergradUniversity && errors.otherUndergradUniversity ? (
+                                            <div className="error-message">{errors.otherUndergradUniversity}</div>
+                                        ) : null}
+                                    </Form.Group>
+                                </div>
                                 <div className={classes.GenderDiv}>
                                     <p>Graduation Date (mm/dd/yy)</p>
                                     <DatePickerField name="gradDate"
@@ -500,48 +534,59 @@ const navigate = useNavigate();
                         </div>
                         {/* <p style={{ paddingTop: '15px', marginBottom: "0px" }}>Select Masters University</p> */}
 
+                        <>
+                            <div className={classes.GenderDiv}>
+
+                                <p >Masters University</p>
+                                <div className={classes.UnderGrad}>
+
+
+                                    <Form.Group className=" " controlId="formBasicText">
+                                        <Field style={{ height: 'min-content' }} name="mastersUniversity" as="select" className="select is-fullwidth">
+                                            <option disabled selected value="">Select Masters University</option>
+                                            <option value="University of Lagos"> University of Lagos</option>
+                                            <option value="University of Nigeria">University of Nigeria</option>
+                                            <option value="Obafemi Awolowo University">Obafemi Awolowo University</option>
+                                            <option value="University of Port Harcourt">University of Port Harcourt</option>
+                                            <option value="University of Ilorin">University of Ilorin</option>
+                                            <option value="Ahmadu Bello University">Ahmadu Bello University</option>
+                                            <option value="University of Benin">University of Benin</option>
+                                            <option value="Bayero University Kano">Bayero University Kano</option>
+                                            <option value="University of Jos">University of Jos</option>
+                                            <option value="Usmanu Danfodio University">Usmanu Danfodio University</option>
+                                            <option value="University of Maiduguri">University of Maiduguri</option>
+                                            <option value="University of Ilorin">University of Ilorin</option>
+                                            <option value="Rivers State University">Rivers State University</option>
+                                            <option value="American University of Nigeria">Federal University of Technology, Owerri</option>
+                                            <option value="Federal University of Technology, Owerri">Imo State University</option>
+                                            <option value="Enugu State University of Science and Technology">Enugu State University of Science and Technology</option>
+                                            <option value="Federal University of Technology, Akure">Federal University of Technology, Akure</option>
+                                            <option value="Abia State University">Abia State University</option>
+                                            <option value="Adekunle Ajasin University">Adekunle Ajasin University</option>
+                                            <option value="Federal University of Technology, Minna">Federal University of Technology, Minna</option>
+                                            <option value="Ekiti State University, Ado Ekiti">Ekiti State University, Ado Ekiti</option>
+                                            <option value="Olabisi Onabanjo University">Olabisi Onabanjo University</option>
+                                            <option value="Lagos State University">Lagos State University</option>
+                                            <option value="University of Agriculture, Makurdi">University of Agriculture, Makurdi</option>
+                                            <option value="Ladoke Akintola University of Technology">Ladoke Akintola University of Technology</option>
+                                            <option value="Covenant University">Covenant University</option>
+                                            <option value="Babcock University">Babcock University</option>
+                                            <option value="Joseph Ayo Babalola University">Joseph Ayo Babalola University</option>
+                                            <option value="Bowen University">Bowen University</option>
+                                            <option value="Redeemer's University Nigeria">Redeemer's University Nigeria</option>
+                                            <option value="Igbinedion University">Igbinedion University</option>
+                                            <option value="Afe Babalola University">Afe Babalola University</option>
+                                            <option value="Landmark University">Landmark University</option>
+                                            <option value="Bells University of Technology">Bells University of Technology</option>
+                                            <option value="American University of Nigeria">American University of Nigeria</option>
+                                            <option value="Others">Others</option>
+                                        </Field>
+                                    </Form.Group>
+                                </div>
+                            </div>
+                        </>
+
                         <div className={classes.UnderGrad}>
-                            <Form.Group className="mb-2 " controlId="formBasicText">
-                                <Field style={{ height: 'min-content' }} name="mastersUniversity" as="select" className="select is-fullwidth">
-                                    <option disabled selected value="">Select Masters University</option>
-                                    <option value="University of Lagos"> University of Lagos</option>
-                                    <option value="University of Nigeria">University of Nigeria</option>
-                                    <option value="Obafemi Awolowo University">Obafemi Awolowo University</option>
-                                    <option value="University of Port Harcourt">University of Port Harcourt</option>
-                                    <option value="University of Ilorin">University of Ilorin</option>
-                                    <option value="Ahmadu Bello University">Ahmadu Bello University</option>
-                                    <option value="University of Benin">University of Benin</option>
-                                    <option value="Bayero University Kano">Bayero University Kano</option>
-                                    <option value="University of Jos">University of Jos</option>
-                                    <option value="Usmanu Danfodio University">Usmanu Danfodio University</option>
-                                    <option value="University of Maiduguri">University of Maiduguri</option>
-                                    <option value="University of Ilorin">University of Ilorin</option>
-                                    <option value="Rivers State University">Rivers State University</option>
-                                    <option value="American University of Nigeria">Federal University of Technology, Owerri</option>
-                                    <option value="Federal University of Technology, Owerri">Imo State University</option>
-                                    <option value="Enugu State University of Science and Technology">Enugu State University of Science and Technology</option>
-                                    <option value="Federal University of Technology, Akure">Federal University of Technology, Akure</option>
-                                    <option value="Abia State University">Abia State University</option>
-                                    <option value="Adekunle Ajasin University">Adekunle Ajasin University</option>
-                                    <option value="Federal University of Technology, Minna">Federal University of Technology, Minna</option>
-                                    <option value="Ekiti State University, Ado Ekiti">Ekiti State University, Ado Ekiti</option>
-                                    <option value="Olabisi Onabanjo University">Olabisi Onabanjo University</option>
-                                    <option value="Lagos State University">Lagos State University</option>
-                                    <option value="University of Agriculture, Makurdi">University of Agriculture, Makurdi</option>
-                                    <option value="Ladoke Akintola University of Technology">Ladoke Akintola University of Technology</option>
-                                    <option value="Covenant University">Covenant University</option>
-                                    <option value="Babcock University">Babcock University</option>
-                                    <option value="Joseph Ayo Babalola University">Joseph Ayo Babalola University</option>
-                                    <option value="Bowen University">Bowen University</option>
-                                    <option value="Redeemer's University Nigeria">Redeemer's University Nigeria</option>
-                                    <option value="Igbinedion University">Igbinedion University</option>
-                                    <option value="Afe Babalola University">Afe Babalola University</option>
-                                    <option value="Landmark University">Landmark University</option>
-                                    <option value="Bells University of Technology">Bells University of Technology</option>
-                                    <option value="American University of Nigeria">American University of Nigeria</option>
-                                    <option value="Others">Others</option>
-                                </Field>
-                            </Form.Group>
                             <Form.Group controlId="formName">
                                 <Form.Label>University (Other):</Form.Label>
                                 <Form.Control
@@ -558,7 +603,7 @@ const navigate = useNavigate();
                                 ) : null}
                             </Form.Group>
                             <div className={classes.GenderDiv}>
-                                <p>Masters Graduation Date (mm/dd/yy)</p>
+                                <p>Masters Graduation Date</p>
                                 <DatePickerField name="mastersGradDate"
                                     value={values.gradDate}
                                     placeholder="Masters Graduation Date"
@@ -603,7 +648,7 @@ const navigate = useNavigate();
                         </div>
 
                         <div className={classes.ButtonDiv}>
-                            <Button variant="success" type="submit" size="lg">
+                            <Button disabled={isSubmitting} variant="success" type="submit" size="lg">
                                 Submit
                             </Button>
                         </div>
@@ -612,7 +657,6 @@ const navigate = useNavigate();
                     </Form>
                 )}
             </Formik>
-
         </div>
     )
 }

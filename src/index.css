@@ -21,12 +21,23 @@ code {
 h1 , h2, h3 , h4 , h5 , h6, p, label, input, body{
   font-family: "Avenir";
 }
+label, p{
+  color:#87AA4B;
+}
 
 select, input{
+  /* width: -webkit-fill-available; */
+width: auto;
+}
+
+select .select{
   width: -webkit-fill-available;
 
 }
 
+
 .btn-success, .btn-primary:hover, .btn-primary:active, .btn-primary:visited {
   background-color: #87AA4B !important;
+  /* width: -webkit-fill-available; */
+  width: 75%;
 }

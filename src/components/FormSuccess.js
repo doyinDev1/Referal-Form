@@ -1,7 +1,17 @@
 import React from 'react'
 import classes from './FormSuccess.module.css'
 import { BsCheckCircleFill } from "react-icons/bs"
+import { useNavigate } from 'react-router-dom'
+
 const FormSuccess = () => {
+  const navigate = useNavigate();
+
+    
+  const routeChange = () =>{ 
+    let path = `/`; 
+    navigate(path);
+  }
+
   return (
     <div>
       <div className={classes.LoginTop}>
@@ -24,9 +34,16 @@ const FormSuccess = () => {
 
           <div className={classes.Notice}>
             <p>Application Submitted Successfully!</p>
+            
           </div>
+          <div className={classes.Back}  onClick={routeChange}>
+        <div className={classes.Notice2}>
+            <p>Go Back</p>
           </div>
         </div>
+          </div>
+        </div>
+
       </div>
     </div>
   )

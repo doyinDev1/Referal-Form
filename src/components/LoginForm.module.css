@@ -9,7 +9,7 @@
     height: auto;
     width: auto;
     max-height: 100px;
-    max-width: 200px;
+    max-width: 353px;
 }
 .LoginWrap{
     padding: 20px 90px;
@@ -18,6 +18,7 @@
     padding: 10px;
     border-radius: 5px;
     border: 1px solid gray;
+    box-shadow: -1px -1px 5px 1px #888888;
 }
 
 .LoginDetail{
@@ -25,12 +26,22 @@
     text-align: center;
     font-family: "Avenir";
 }
-.LoginDetails p{
+.LoginDetails h1{
     color: grey;
-    font-size: small;
+    /* font-size: small; */
     text-align: center;
     font-family: "Avenir";
     padding: 0 10px;
+    font-size: 29px;
+
+}
+.LoginDetails h2{
+    color: grey;
+    text-align: center;
+    font-family: "Avenir";
+    padding: 0 10px;
+    font-size: 20px;
+
 }
 
 
@@ -106,6 +117,11 @@ padding: 20px 421px;
         flex-direction: column;
     }   
 }
+
+
+
+
+
 @media only screen and (min-width: 1800px) {
 
     .LoginWrap {
@@ -114,6 +130,11 @@ padding: 20px 421px;
     .UnderGrad{
         flex-direction: column;
     }   
+}
+
+select{
+      width: -webkit-fill-available;
+
 }
 @media only screen and (min-width: 2400px) {
 

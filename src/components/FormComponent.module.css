@@ -1,6 +1,7 @@
 .Name{
     display: flex;
     gap: 0.8rem;
+    justify-content: space-between;
 }
 .NameInfo{
     margin-bottom: 10px;
@@ -30,11 +31,14 @@
 .UnderGrad{
     display: flex;
     gap: 0.8rem;
-align-items: center;
+/* align-items: center; */
 }
 
 .ButtonDiv{
     padding-top: 20px;
+    display: flex;
+    align-self: center;
+    justify-content: center;
 }
 
 .Nysc{
@@ -42,7 +46,20 @@ align-items: center;
 }
 
 
+.Padded{
+    margin-top: '-66px'
+}
+
+
+
 @media only screen and (max-width: 800px) {
+
+    .Padded{
+        /* margin-top: '0px' ; */
+  
+    }
+
+
    .Name{
 flex-direction: column;
    }
@@ -67,3 +84,31 @@ flex-direction: column;
 }
 
   }
+
+
+  @media only screen and (max-width: 1200px) {
+  
+
+    .Name{
+        flex-direction: column;
+           }
+           .GenderDOB{
+            flex-direction: column;
+        
+        }
+        .StateOrigin{
+            flex-direction: column;
+        
+        }
+        .University{
+            flex-direction: column;
+        
+        }
+        .UnderGrad{
+            display: block;
+            gap: 0.8rem;
+        align-items: center;
+        flex-direction: column;
+        
+        }
+}

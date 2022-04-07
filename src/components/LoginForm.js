@@ -19,11 +19,11 @@ const LoginForm = () => {
             </div>
 
             <div className={classes.LoginDetail}>
-                <h2>Access Bank Graduate Placement Scheme Application Form</h2>
+                <h1>Access Bank Entry <br />Level Scheme</h1>
             </div>
             <div className={classes.LoginDetails}>
 
-                <p>Please Complete all the details on the form below and submit</p>
+                <h2>Please Complete all the details on the form below and submit</h2>
             </div>
             <div className={classes.LoginWrap}>
 
