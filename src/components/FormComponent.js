@@ -10,7 +10,10 @@ import BlackDiv from '../components/BlackDiv'
 import subDays from "date-fns/subDays";
 import addDays from "date-fns/addDays";
 import { useNavigate } from 'react-router-dom'
-// import axios from 'axios';
+import axios from 'axios';
+import { Config } from '../Config/Config'
+import toast , {Toaster } from 'react-hot-toast'
+
 const validationSchema = Yup.object().shape({
     email: Yup.string().required('Your Email is required').email('Please enter a valid email'),
     firstname: Yup.string().required('Your First name is required'),
@@ -21,7 +24,7 @@ const validationSchema = Yup.object().shape({
 
 const FormComponent = () => {
     const [startDate, setStartDate] = useState(new Date());
-
+const [loading, setLoading] = useState(false)
     const navigate = useNavigate();
 
 
@@ -35,9 +38,30 @@ const FormComponent = () => {
     const SendValues = (values) => {
 
 
-        // console.log(values, "sendvsale")
-        // eslint-disable-next-line no-undef
-        routeChange()
+     
+		axios
+        .post(`${Config.url.API_URL}/apply`, values)
+        .then((res) => {
+            const userData = JSON.stringify({
+                data: res.data,
+            });
+
+                sessionStorage.setItem('taCandidate', userData);
+            
+
+            toast.success('Registeration Completed');
+            routeChange()
+
+          
+            // console.log(res.data.data.token);
+        })
+        .catch((err) => {
+            const errMsg = err?.response?.data?.message
+                ? err?.response?.data?.message
+                : 'Failed to Login!';
+            toast.error(errMsg);
+            setLoading(false);
+        });
     }
 
 
@@ -52,15 +76,18 @@ const FormComponent = () => {
                     // When button submits form and form is in the process of submitting, submit button is disabled
                     setSubmitting(true)
                     //   Simulate submitting to database, shows us values submitted, resets form
-                    setTimeout(() => {
-                        // alert(JSON.stringify(values, null, 2));
-                        resetForm();
-                        // alert("FormSubmitted")
-                        SendValues(values)
-                    }, 2000);
-
+                    // setTimeout(() => {
+                    //     // alert(JSON.stringify(values, null, 2));
+                    //     resetForm();
+                    //     // alert("FormSubmitted")
+                    // }, 2000);
+                    
+                    SendValues(values)
                     // console.log("i don submit oo")
                     // setSubmitting(false)
+                    resetForm();
+                    setSubmitting(false)
+
                 }
                 }
             >
