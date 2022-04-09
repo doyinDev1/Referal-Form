@@ -6,6 +6,8 @@ import toast , {Toaster } from 'react-hot-toast'
 function App() {
   return (
     <div className="app">
+
+      
       <Routes>
         <Route exact path="/" element={<LoginForm />} />
         <Route path="success" element={<RegistrationSuccess />} />

@@ -12,56 +12,53 @@ import addDays from "date-fns/addDays";
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios';
 import { Config } from '../Config/Config'
-import toast , {Toaster } from 'react-hot-toast'
+import toast from 'react-hot-toast'
 
 const validationSchema = Yup.object().shape({
     email: Yup.string().required('Your Email is required').email('Please enter a valid email'),
-    firstname: Yup.string().required('Your First name is required'),
-    lastname: Yup.string().required('Your Last name is required'),
+    first_name: Yup.string().required('Your First name is required'),
+    last_name: Yup.string().required('Your Last name is required'),
     number: Yup.number().required('Your Phone number is required'),
 
 });
 
 const FormComponent = () => {
-    const [startDate, setStartDate] = useState(new Date());
-const [loading, setLoading] = useState(false)
+
+        // convert val to localdatestring to change format to 2022/12/31 
+    const [startDate, setStartDate] = useState(new Date().toLocaleDateString('en-ZA'));
+    const [loading, setLoading] = useState(false)
     const navigate = useNavigate();
 
-
+    // console.log(startDate, "1")
     const routeChange = () => {
         let path = `success`;
         navigate(path);
     }
-
-
-
     const SendValues = (values) => {
 
+        axios
+            .post(`${Config.url.API_URL}/apply`, values)
+            .then((res) => {
+                // const userData = JSON.stringify({
+                //     data: res.data,
+                // });
 
-     
-		axios
-        .post(`${Config.url.API_URL}/apply`, values)
-        .then((res) => {
-            const userData = JSON.stringify({
-                data: res.data,
+                // sessionStorage.setItem('taCandidate', userData);
+
+
+                routeChange()
+                toast.success('Registeration Completed');
+
+
+                // console.log(res.data.data.token);
+            })
+            .catch((err) => {
+                const errMsg = err?.response?.data?.message
+                    ? err?.response?.data?.message
+                    : 'Failed to Login!';
+                toast.error(errMsg);
+                setLoading(false);
             });
-
-                sessionStorage.setItem('taCandidate', userData);
-            
-
-            toast.success('Registeration Completed');
-            routeChange()
-
-          
-            // console.log(res.data.data.token);
-        })
-        .catch((err) => {
-            const errMsg = err?.response?.data?.message
-                ? err?.response?.data?.message
-                : 'Failed to Login!';
-            toast.error(errMsg);
-            setLoading(false);
-        });
     }
 
 
@@ -70,9 +67,11 @@ const [loading, setLoading] = useState(false)
         <div>
             {/* {console.log(finalData, "finaldata")} */}
             <Formik
-                initialValues={{ firstname: "", middlename: "", lastname: "", mastersUniversity: "", mastersUniversityOther: "", nyscDate: "", otherUniversity: "", undergraduateUniversity: "", otherUndergradUniversity: "", dateofBirth: "", email: "", gradDate: "", courseOfStudy: "" }}
+                initialValues={{ first_name: "", middle_name: "", last_name: "", masters_university: "", masters_graduation_date: "", mastersUniversityOther: "", nysc_date: "", otherUniversity: "", undergraduateUniversity: "", otherUndergradUniversity: "", date_of_birth: "", email: "", graduation_date: "", }}
                 validationSchema={validationSchema}
                 onSubmit={(values, { setSubmitting, resetForm }) => {
+
+
                     // When button submits form and form is in the process of submitting, submit button is disabled
                     setSubmitting(true)
                     //   Simulate submitting to database, shows us values submitted, resets form
@@ -81,12 +80,13 @@ const [loading, setLoading] = useState(false)
                     //     resetForm();
                     //     // alert("FormSubmitted")
                     // }, 2000);
-                    
+
                     SendValues(values)
                     // console.log("i don submit oo")
                     // setSubmitting(false)
-                    resetForm();
+
                     setSubmitting(false)
+                    resetForm();
 
                 }
                 }
@@ -104,7 +104,8 @@ const [loading, setLoading] = useState(false)
 
 
                     <Form onSubmit={handleSubmit} className="mx-auto">
-                        {/* {console.log(values)} */}
+                        {/* {console.log(values)}
+                        {console.log(startDate, "2")} */}
 
                         <div className="BlackDicContainer" style={{ paddingTop: '20px', paddingBottom: '20px' }}>
 
@@ -118,16 +119,16 @@ const [loading, setLoading] = useState(false)
                                 <Form.Label>First Name :</Form.Label>
                                 <Form.Control
                                     type="text"
-                                    name="firstname"
+                                    name="first_name"
                                     placeholder="First Name"
                                     onChange={handleChange}
                                     onBlur={handleBlur}
                                     required
-                                    value={values.firstname}
-                                    className={touched.firstname && errors.firstname ? "error" : null}
+                                    value={values.first_name}
+                                    className={touched.first_name && errors.first_name ? "error" : null}
                                 />
-                                {touched.firstname && errors.firstname ? (
-                                    <div className="error-message">{errors.firstname}</div>
+                                {touched.first_name && errors.first_name ? (
+                                    <div className="error-message">{errors.first_name}</div>
                                 ) : null}
                             </Form.Group>
 
@@ -136,15 +137,15 @@ const [loading, setLoading] = useState(false)
                                 <Form.Label>Middle Name :</Form.Label>
                                 <Form.Control
                                     type="text"
-                                    name="middlename"
+                                    name="middle_name"
                                     placeholder="Middle Name"
                                     onChange={handleChange}
                                     onBlur={handleBlur}
-                                    value={values.middlename}
-                                    className={touched.middlename && errors.middlename ? "error" : null}
+                                    value={values.middle_name}
+                                    className={touched.middle_name && errors.middle_name ? "error" : null}
                                 />
-                                {touched.middlename && errors.middlename ? (
-                                    <div className="error-message">{errors.middlename}</div>
+                                {touched.middle_name && errors.middle_name ? (
+                                    <div className="error-message">{errors.middle_name}</div>
                                 ) : null}
                             </Form.Group>
 
@@ -152,17 +153,17 @@ const [loading, setLoading] = useState(false)
                                 <Form.Label>Last Name :</Form.Label>
                                 <Form.Control
                                     type="text"
-                                    name="lastname"
+                                    name="last_name"
                                     placeholder="Last Name"
                                     onChange={handleChange}
                                     onBlur={handleBlur}
                                     required
 
-                                    value={values.lastname}
-                                    className={touched.lastname && errors.lastname ? "error" : null}
+                                    value={values.last_name}
+                                    className={touched.last_name && errors.last_name ? "error" : null}
                                 />
-                                {touched.lastname && errors.lastname ? (
-                                    <div className="error-message">{errors.lastname}</div>
+                                {touched.last_name && errors.last_name ? (
+                                    <div className="error-message">{errors.last_name}</div>
                                 ) : null}
                             </Form.Group>
 
@@ -191,24 +192,41 @@ const [loading, setLoading] = useState(false)
                             </div>
 
                             <div className={classes.GenderDiv}>
-                                <p>Date of Birth (mm/dd/yy)</p>
-                                <DatePickerField name="dateofBirth"
-                                    value={values.dateofBirth}
+                                <p>Date of Birth (yy/mm/dd)</p>
+                                <DatePickerField name="date_of_birth"
+                                    value={values.date_of_birth}
                                     required
                                     selected={startDate}
-                                    onChange={handleChange}
-                                    onClick={date => setStartDate(date)}
+                                    // onChange={(date) => setStartDate(date.toLocaleDateString('en-GB'))}
+                                    // onClick={date => setStartDate(date.toLocaleDateString('en-GB'))}
                                     excludeDateIntervals={[{ start: subDays(new Date(), 6574), end: addDays(new Date(), 657499) }]}
-                                    onBlur={handleBlur}
+                                    // onBlur={handleBlur}
+                                    // onChange={handleChange}
+
+                                    // onClick={date => setStartDate(date.toLocaleDateString('en-GB'))}
+
                                     peekNextMonth
+                                    dateFormat="dd/MM/yyyy"
                                     showMonthDropdown
                                     showYearDropdown
                                     dropdownMode="select"
-                                    className={touched.dateofBirth && errors.dateofBirth ? "error" : null}
                                     placeholderText="Must be 18yrs or older"
-                                    date
+                                    className={touched.date_of_birth && errors.date_of_birth ? "error" : null}
+                                // date
                                 />
                             </div>
+
+                          
+                            {/* <input 
+                            type="date"
+                            value={values.date_of_birth}
+                            onBlur={handleBlur}
+                            onChange={handleChange}
+                            changeMonth={false} 
+                            /> */}
+
+
+
 
                         </div>
                         <div className={classes.GenderDOB}>
@@ -253,7 +271,7 @@ const [loading, setLoading] = useState(false)
                                 <p style={{ paddingTop: '15px' }}>State of Origin</p>
                                 <Form.Group className="mb-2 " controlId="formBasicText" required>
 
-                                    <Field style={{ height: 'min-content' }} name="stateOfOrigin" as="select" className="select is-fullwidth">
+                                    <Field style={{ height: 'min-content' }} name="state_of_origin" as="select" className="select is-fullwidth">
                                         <option selected disabled value="">Select State of Origin</option>
                                         <option value="Abia">Abia </option>
                                         <option value="Adamawa">Adamawa</option>
@@ -288,7 +306,7 @@ const [loading, setLoading] = useState(false)
                                         <option value="Rivers">Rivers</option>
                                         <option value="Sokoto">Sokoto</option>
                                         <option value="Taraba">Taraba</option>
-                                        <option value="AYobe">Yobe</option>
+                                        <option value="Yobe">Yobe</option>
                                         <option value="Zamfara">Zamfara</option>
                                         <option value="FCT Abuja">FCT Abuja</option>
 
@@ -302,7 +320,7 @@ const [loading, setLoading] = useState(false)
                                 <p style={{ paddingTop: '15px' }}>State of Residence</p>
                                 <Form.Group className="mb-2 " controlId="formBasicText">
 
-                                    <Field style={{ height: 'min-content' }} name="state of residence" as="select" className="select is-fullwidth">
+                                    <Field style={{ height: 'min-content' }} name="state_of_residence" as="select" className="select is-fullwidth">
                                         <option selected disabled value="">Select State of Residence</option>
                                         <option value="Abia">Abia </option>
                                         <option value="Adamawa">Adamawa</option>
@@ -337,7 +355,7 @@ const [loading, setLoading] = useState(false)
                                         <option value="Rivers">Rivers</option>
                                         <option value="Sokoto">Sokoto</option>
                                         <option value="Taraba">Taraba</option>
-                                        <option value="AYobe">Yobe</option>
+                                        <option value="Yobe">Yobe</option>
                                         <option value="Zamfara">Zamfara</option>
                                         <option value="FCT Abuja">FCT Abuja</option>
 
@@ -352,18 +370,32 @@ const [loading, setLoading] = useState(false)
                             />
                         </div>
 
-                        <div className={classes.NameInfo}>
+                        {/* <div className={classes.NameInfo}>
 
                             <Form.Text className="text-muted">
                                 Education
                             </Form.Text>
+                        </div> */}
+                        <div className={classes.NameDeg}>
+                            <p style={{ paddingTop: '15px' }}>Highest Degree</p>
+                            <Form.Group className="mb-2 " controlId="formBasicText">
+                                <Field style={{ height: 'min-content' }} name="highestDegree" as="select" className="select is-fullwidth">
+                                    <option selected disabled value="">Select Degree</option>
+                                    <option value="Doctor of Philosophy">Doctor of Philosophy (PhD)</option>
+                                    <option value="Masters">Masters</option>
+                                    <option value="Undergraduate">Undergraduate</option>
+                                </Field>
+                            </Form.Group>
                         </div>
-                        <div className={classes.GenderDiv}>
+                        
+
+
+                        {/* <div className={classes.GenderDiv}>
 
                             <p style={{ paddingTop: '15px' }}>University</p>
                             <Form.Group className="mb-2 " controlId="formBasicText">
 
-                                <Field style={{ height: 'min-content' }} name="University" as="select" className="select is-fullwidth">
+                                <Field style={{ height: 'min-content' }} name="university" as="select" className="select is-fullwidth">
                                     <option selected>Select University</option>
 
                                     <option value="University of Lagos"> University of Lagos</option>
@@ -412,7 +444,7 @@ const [loading, setLoading] = useState(false)
                                     <Form.Control
                                         type="text"
                                         name="otherUniversity"
-                                        placeholder="Type in Other"
+                                        placeholder="Fill in if you selected Other"
                                         onChange={handleChange}
                                         onBlur={handleBlur}
                                         value={values.otherUniversity}
@@ -423,20 +455,9 @@ const [loading, setLoading] = useState(false)
                                     ) : null}
                                 </Form.Group>
                             </div>
-                        </div>
+                        </div> */}
 
-                        <div className={classes.NameDeg}>
-                            <p style={{ paddingTop: '15px' }}>Highest Degree</p>
-                            <Form.Group className="mb-2 " controlId="formBasicText">
-                                <Field style={{ height: 'min-content' }} name="Highest Degree" as="select" className="select is-fullwidth">
-                                    <option selected disabled value="">Degree</option>
-                                    <option value="Doctor of Philosophy">Doctor of Philosophy (PhD)</option>
-                                    <option value="Masters">Masters</option>
-                                    <option value="Undergraduate">Undergraduate</option>
-                                </Field>
-                            </Form.Group>
-                        </div>
-
+                       
 
                         <div className={classes.NameInfo}>
                             <Form.Text className="text-muted">
@@ -450,7 +471,7 @@ const [loading, setLoading] = useState(false)
 
 
                                 <Form.Group className="mb-2 " style={{ marginTop: '40px' }} controlId="formBasicText">
-                                    <Field style={{ height: 'min-content' }} name="undergraduateUniversity" as="select" className="select is-fullwidth">
+                                    <Field style={{ height: 'min-content' }} name="university" as="select" className="select is-fullwidth">
                                         <option disabled selected value="">Select Undergraduate University</option>
                                         <option value="University of Lagos"> University of Lagos</option>
                                         <option value="University of Nigeria">University of Nigeria</option>
@@ -487,7 +508,7 @@ const [loading, setLoading] = useState(false)
                                         <option value="Landmark University">Landmark University</option>
                                         <option value="Bells University of Technology">Bells University of Technology</option>
                                         <option value="American University of Nigeria">American University of Nigeria</option>
-                                        <option value="Others">Others</option>
+                                        <option value="Other">Other</option>
                                     </Field>
                                 </Form.Group>
                                 <div className={classes.Padded}>
@@ -497,7 +518,7 @@ const [loading, setLoading] = useState(false)
                                         <Form.Control
                                             type="text"
                                             name="otherUndergradUniversity"
-                                            placeholder="Other University Name"
+                                            placeholder="Fill if you selected Other"
                                             onChange={handleChange}
                                             onBlur={handleBlur}
                                             value={values.otherUndergradUniversity}
@@ -509,13 +530,20 @@ const [loading, setLoading] = useState(false)
                                     </Form.Group>
                                 </div>
                                 <div className={classes.GenderDiv}>
-                                    <p>Graduation Date (mm/dd/yy)</p>
-                                    <DatePickerField name="gradDate"
-                                        value={values.gradDate}
+                                    <p>Graduation Date (yy/mm/dd)</p>
+                                    <DatePickerField name="graduation_date"
+                                        value={values.graduation_date}
                                         placeholder="Graduation Date"
-                                        onChange={handleChange}
+                                        // onChange={handleChange}
+                                        dateFormat="dd/MM/yyyy"
+                                        onChange={(date) => setStartDate(date)}
                                         onBlur={handleBlur}
-                                        className={touched.gradDate && errors.gradDate ? "error" : null}
+                                        peekNextMonth
+                                    showMonthDropdown
+                                    showYearDropdown
+                                    dropdownMode="select"
+                                    placeholderText="Graduation Date"
+                                        className={touched.graduation_date && errors.graduation_date ? "error" : null}
                                         date
                                     />
                                 </div>
@@ -527,15 +555,15 @@ const [loading, setLoading] = useState(false)
                                 <Form.Label> Course of Study</Form.Label>
                                 <Form.Control
                                     type="text"
-                                    name="courseOfStudy"
-                                    placeholder="Course of Study"
+                                    name="course"
+                                    placeholder="Fill in the course you studied"
                                     onChange={handleChange}
                                     onBlur={handleBlur}
-                                    value={values.courseOfStudy}
-                                    className={touched.courseOfStudy && errors.courseOfStudy ? "error" : null}
+                                    value={values.course}
+                                    className={touched.course && errors.course ? "error" : null}
                                 />
-                                {touched.courseOfStudy && errors.courseOfStudy ? (
-                                    <div className="error-message">{errors.courseOfStudy}</div>
+                                {touched.course && errors.course ? (
+                                    <div className="error-message">{errors.course}</div>
                                 ) : null}
                             </Form.Group>
 
@@ -543,12 +571,12 @@ const [loading, setLoading] = useState(false)
                             <div className={classes.NameDeg}>
                                 <p style={{ paddingTop: '15px' }}>Class of Degree</p>
                                 <Form.Group className="mb-2 " controlId="formBasicText">
-                                    <Field style={{ height: 'min-content' }} name="classOfDegree" as="select" className="select is-fullwidth">
+                                    <Field style={{ height: 'min-content' }} name="class_of_deg" as="select" className="select is-fullwidth">
                                         <option disabled selected>Select Class of Degree</option>
                                         <option value="FirstClass">First Class</option>
-                                        <option value="Second Class Upper">Second Class Upper </option>
-                                        <option value="Second Class Lower">Second Class Lower </option>
-                                        <option value="Third Class">Third Class </option>
+                                        <option value="SecondClassUpper">Second Class Upper </option>
+                                        <option value="SecondClassLower">Second Class Lower </option>
+                                        <option value="ThirdClass">Third Class </option>
                                         <option value="Pass">Pass </option>
                                     </Field>
                                 </Form.Group>
@@ -569,7 +597,7 @@ const [loading, setLoading] = useState(false)
 
 
                                     <Form.Group className=" " controlId="formBasicText">
-                                        <Field style={{ height: 'min-content' }} name="mastersUniversity" as="select" className="select is-fullwidth">
+                                        <Field style={{ height: 'min-content' }} name="masters_university" as="select" className="select is-fullwidth">
                                             <option disabled selected value="">Select Masters University</option>
                                             <option value="University of Lagos"> University of Lagos</option>
                                             <option value="University of Nigeria">University of Nigeria</option>
@@ -619,7 +647,7 @@ const [loading, setLoading] = useState(false)
                                 <Form.Control
                                     type="text"
                                     name="mastersUniversityOther"
-                                    placeholder="Type in Other"
+                                    placeholder="Fill if you typed Other"
                                     onChange={handleChange}
                                     onBlur={handleBlur}
                                     value={values.mastersUniversityOther}
@@ -631,12 +659,19 @@ const [loading, setLoading] = useState(false)
                             </Form.Group>
                             <div className={classes.GenderDiv}>
                                 <p>Masters Graduation Date</p>
-                                <DatePickerField name="mastersGradDate"
-                                    value={values.gradDate}
+                                <DatePickerField name="masters_graduation_date"
+                                    value={values.masters_graduation_date}
                                     placeholder="Masters Graduation Date"
                                     onChange={handleChange}
                                     onBlur={handleBlur}
-                                    className={touched.gradDate && errors.gradDate ? "error" : null}
+                                    dateFormat="dd/MM/yyyy"
+                                    peekNextMonth
+                                    showMonthDropdown
+                                    placeholderText="Click to select date"
+
+                                    showYearDropdown
+                                    dropdownMode="select"
+                                    className={touched.masters_graduation_date && errors.masters_graduation_date ? "error" : null}
                                     date
                                 />
                             </div>
@@ -653,7 +688,7 @@ const [loading, setLoading] = useState(false)
                             <div className="GenderDiv">
                                 <p>Have you Completed NYSC?</p>
                                 <Form.Group className="mb-2 " controlId="formBasicText">
-                                    <Field style={{ height: 'min-content' }} name="nysc" as="select" className="select is-fullwidth">
+                                    <Field style={{ height: 'min-content' }} name="completed_nysc" as="select" className="select is-fullwidth">
                                         <option disabled value="" selected>Select Option</option>
                                         <option value="Yes">Yes</option>
                                         <option value="No">No</option>
@@ -662,12 +697,17 @@ const [loading, setLoading] = useState(false)
                             </div>
                             <div className={classes.GenderDiv}>
                                 <p>(If Yes) Pass Out Date:</p>
-                                <DatePickerField name="nyscDate"
-                                    value={values.nyscDate}
+                                <DatePickerField name="nysc_date"
+                                    value={values.nysc_date}
                                     placeholder="NYSC pass out Date"
                                     onChange={handleChange}
                                     onBlur={handleBlur}
-                                    className={touched.nyscDate && errors.nyscDate ? "error" : null}
+                                    dateFormat="dd/MM/yyyy"
+                                    peekNextMonth
+                                    showMonthDropdown
+                                    showYearDropdown
+                                    dropdownMode="select"
+                                    className={touched.nysc_date && errors.nysc_date ? "error" : null}
                                     date
                                     placeholderText="Click to select date"
                                 />
