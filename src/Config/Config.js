@@ -1,6 +1,6 @@
 const prod = {
 	url: {
-		API_URL: `https://candidate.testassessify.com/api/api`,
+		API_URL: `https://afternoon-ridge-35420.herokuapp.com/https://testassessify.com/backend/public/api`,
 	},
 };
 
@@ -8,7 +8,7 @@ const prod = {
 const dev = {
 	url: {
 		API_URL:
-			'https://afternoon-ridge-35420.herokuapp.com/https://candidate.testassessify.com/api/api',
+			'https://afternoon-ridge-35420.herokuapp.com/https://testassessify.com/backend/public/api',
 	},
 };
 

@@ -13,6 +13,27 @@
     /* justify-content: center; */
 
 }
+.GenderDivGD p{
+    margin-bottom: 0.4rem;
+
+}
+.GenderDivM p{
+   
+        margin-top: 0;
+        margin-bottom: 0.4rem;
+       
+    
+}
+
+
+.Pad{
+    padding-bottom: 30px;
+}
+
+.Last{
+    padding-top: 0px;
+
+}
 .StateOrigin{
     display: flex;
     gap: 0.8rem;
@@ -23,6 +44,12 @@
     gap: 0.8rem;
 
 }
+/* input[type="date"] {
+
+    
+    width: 200px;
+    border-radius: 4px;
+} */
 
 .NameDeg{
     display: flex;
@@ -31,8 +58,19 @@
 .UnderGrad{
     display: flex;
     gap: 0.8rem;
-/* align-items: center; */
+align-items: center;
+padding-top: 5px;
+
 }
+
+
+.ReferSize > select{
+    /* width: -webkit-fill-available; */
+  /* width: 186px !important; */
+  /* height: 30px !important; */
+  /* color: black !important; */
+  }
+
 
 .ButtonDiv{
     padding-top: 20px;
@@ -47,10 +85,13 @@
 
 
 .Padded{
-    margin-top: '-66px'
+    /* margin-top: '-66px' */
 }
 
-
+.GenderDiv2{
+    /* max-width: 500px; */
+    width: 218px;
+}
 
 @media only screen and (max-width: 800px) {
 

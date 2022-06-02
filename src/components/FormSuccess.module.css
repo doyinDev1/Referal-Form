@@ -59,7 +59,6 @@
     display: flex;
     align-items: center;
     justify-content: center;
-
 }
 
 @media only screen and (max-width: 600px) {
@@ -68,3 +67,32 @@
     padding: 20px 30px;
 }
 }
+
+@media only screen and (min-width: 768px ) {
+
+    .CardCover{
+        padding: 20px 167px;
+    }
+    }
+
+    @media only screen and (min-width: 1024px ) {
+
+        .CardCover{
+            padding: 20px 293px;
+        }
+        }
+
+@media only screen and (min-width: 1400px) {
+
+    .CardCover{
+        padding: 20px 474px;
+    }
+    }
+
+
+@media only screen and (min-width: 1800px) {
+
+    .CardCover{
+        padding: 20px 798px;
+    }
+    }

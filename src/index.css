@@ -12,10 +12,12 @@ code {
     monospace;
 }
 
-
 @font-face {
   font-family: "Avenir";
-  src: url(./assests/fonts/AvenirLTStd-Black.otf);
+  src: url(./assests/fonts/AvenirLTStd-Roman.otf);
+}
+*{
+  font-family: "Avenir";
 }
 
 h1 , h2, h3 , h4 , h5 , h6, p, label, input, body{
@@ -26,14 +28,20 @@ label, p{
 }
 
 select, input{
-  /* width: -webkit-fill-available; */
+  width: -webkit-fill-available;
 width: auto;
+height: 30px !important;
+/* color: black !important; */
 }
 
 select .select{
   width: -webkit-fill-available;
 
 }
+input[type="text"] {
+color: black !important;
+}
+
 
 
 .btn-success, .btn-primary:hover, .btn-primary:active, .btn-primary:visited {
@@ -41,3 +49,8 @@ select .select{
   /* width: -webkit-fill-available; */
   width: 75%;
 }
+
+.form-control::placeholder{
+  /* color: black !important; */
+}
+

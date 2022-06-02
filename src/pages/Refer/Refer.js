@@ -1,14 +1,10 @@
 import React from 'react'
-import RegistrationSuccess from '../pages/RegistrationSuccess'
-import FormBottom from './FormBottom'
-// import BasicForm from './BasicForm'
-import FormComponent from './FormComponent'
-import FormSuccess from './FormSuccess'
-// import Form from './FormComponent'
-import classes from './LoginForm.module.css'
-
-const LoginForm = () => {
-    return (
+import classes from './Refer.module.css'
+import FormBottom from '../../components/FormBottom'
+import FormComponent2 from './FormComponent2'
+const Refer = () => {
+  return (
+    <div>
         <>
             <div className={classes.LoginTop}>
                 <img
@@ -19,7 +15,7 @@ const LoginForm = () => {
             </div>
 
             <div className={classes.LoginDetail}>
-                <h1>Access Bank Entry Level Training Program - Tech</h1>
+                <h1>Access Bank Internal Referral form</h1>
             </div>
             <div className={classes.LoginDetails}>
                 <h3>Please complete all the details on the form below and submit</h3>
@@ -27,12 +23,13 @@ const LoginForm = () => {
             <div className={classes.LoginWrap}>
 
                 <div className={classes.LoginFormCard}>
-                    <FormComponent />
+                    <FormComponent2 />
                 </div>
                 <FormBottom />
             </div>
         </>
-    )
+    </div>
+  )
 }
 
-export default LoginForm
+export default Refer

@@ -36,7 +36,7 @@ const FormSuccess = () => {
             <p>Application Submitted Successfully!</p>
             
           </div>
-          <div className={classes.Back}  onClick={routeChange}>
+          <div className={classes.Back} style={{cursor: "pointer"}}  onClick={routeChange}>
         <div className={classes.Notice2}>
             <p>Go Back</p>
           </div>

@@ -17,7 +17,7 @@ export const DatePickerField = ({ ...props }) => {
       selected={(field.value && new Date(field.value)) || null}
       onChange={val => {
         // convert val to localdatestring to change format to 2022/12/31 
-        setFieldValue(field.name, val.toLocaleDateString('en-ZA'));
+        setFieldValue(field.name, val);
       }}
     />
   );
