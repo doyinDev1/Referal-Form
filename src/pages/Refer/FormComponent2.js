@@ -18,6 +18,8 @@ import { useForm } from 'react-hook-form';
 
 
 const FormComponent2 = () => {
+    let navigate = useNavigate();
+    const [loading, setLoading] = useState(false)
 
     const [selectDegree, setSelectDegree] = useState(0);
     const Schema = yup.object({
@@ -25,8 +27,7 @@ const FormComponent2 = () => {
         last_name: yup.string().required("This field is required"),
         middle_name: yup.string().required("This field is required"),
         mobile_no: yup.string().required("This field is required"),
-
-        // gender: yup
+     // gender: yup
         // .object()
         // .shape({
         //   male: yup.string().required("Gender is required (from label)"),
@@ -34,13 +35,41 @@ const FormComponent2 = () => {
         // }).nullable() // for handling null value when clearing options via clicking "x"
         // .required("status is required (Gender is required)")
        
-      });
+         });
     const { register, handleSubmit, formState: { errors } } = useForm({
         resolver: yupResolver(Schema),
       });
-    const onSubmit = data => console.log(data);
-    console.log(errors);
-    
+      const routeChange = () => {
+        // let path = `success`;
+        navigate("/success");
+    }
+    const onSubmit = data => {
+        setLoading(true);
+
+        // console.log(data);
+    // console.log(errors);
+    axios
+    .post(`${Config.url.API_URL}/referral-apply`, data)
+    .then((res) => {
+        // console.log(res, "res")
+        if (res?.data?.error?.length >= 1) throw new Error(res?.data?.error[0]);
+
+        toast.success('Registeration Completed');
+        routeChange()
+
+
+        // console.log(res.data.data.token);
+    })
+    .catch((err) => {
+        console.log(err, "err")
+        const errMsg = err?.response?.data?.message
+            ? err
+            : "Error";
+        toast.error("error");
+        setLoading(false);
+    });
+
+    }
 
     return (
         <div className={classes.ReferSize}>
@@ -63,7 +92,7 @@ const FormComponent2 = () => {
                         <option selected disabled value="">Select Preferred Role</option>
 
                         <option value="Graduate">Entry Level Training Program</option>
-                        <option value="Digital_Services">Entry Level Training Program - TECH</option>
+                        <option value="Digital_Services(tech)">Entry Level Training Program - TECH</option>
                     </select>
                     <div className="BlackDicContainer" style={{ paddingTop: '10px', paddingBottom: '10px' }}>
 
@@ -101,8 +130,8 @@ const FormComponent2 = () => {
 
                     <Form.Group controlId="formName" >
 
-                        <input type="text" placeholder="Middle" {...register("middle_name", {})} />
-                        {errors.last_name && <p style={{color: "red"}}>Last Name is required</p>}
+                        <input type="text" placeholder="Middle Name" {...register("middle_name", {})} />
+                        {errors.middle_name && <p style={{color: "red"}}>Middle Name is required</p>}
 
                     </Form.Group>
 </div>
@@ -114,7 +143,7 @@ const FormComponent2 = () => {
                     <Form.Group controlId="formName" >
 
                         <input type="text" placeholder="Last Name" {...register("last_name", {})} />
-                        {errors.middle_name && <p style={{color: "red"}}>Middle Name is required</p>}
+                        {errors.last_name && <p style={{color: "red"}}>Last Name is required</p>}
 
                     </Form.Group>
 </div>
@@ -124,13 +153,28 @@ const FormComponent2 = () => {
 
                 <Form.Group controlId="formName" >
 
-                    <select {...register("gender")}>
+                    <select defaultValue=""  {...register("gender")}>
                         <option disabled selected >Select Gender</option>
                         <option value="Male">Male</option>
                         <option value="Female">Female</option>
                     </select>
                     {errors.gender && <p style={{color: "red"}}>Gender is Required</p>}
                 </Form.Group>
+                <Form.Label style={{paddingTop: "20px"}}>Marital Status:</Form.Label>
+
+                <Form.Group controlId="formName" >
+
+<select {...register("marital_status")}>
+<option disabled value="" selected>Select Status</option>
+                                    <option value="Single">Single</option>
+                                    <option value="Married">Married</option>
+                                    <option value="Divorced">Divorced</option>
+</select>
+{/* {errors.gender && <p style={{color: "red"}}>Gender is Required</p>} */}
+</Form.Group>
+                
+
+
 
                 <Form.Label style={{paddingTop: "20px"}}>Phone Number</Form.Label>
                 <Form.Group controlId="formName" >
@@ -249,7 +293,7 @@ const FormComponent2 = () => {
                         <option value="Secondary School">Secondary School</option>
                         <option value="OND">OND</option>
                         <option value="HND">HND</option>
-                        <option value="Undergraduate">Undergraduate</option>
+                        <option value="B.SC /B.A">B.SC /B.A</option>
                         <option value="Masters">Masters</option>
                         <option value="Doctor of Philosophy">Doctor of Philosophy (PhD)</option>
                     </select>
@@ -259,7 +303,12 @@ const FormComponent2 = () => {
 
 
                     <>
-                        <Form.Label style={{paddingTop: "20px"}}>University:</Form.Label>
+                    <div style={{paddingTop: "20px"}} className={classes.NameInfo}>
+                                    <Form.Text  className="text-muted">
+                                        Undergraduate Information
+                                    </Form.Text>
+                                </div>
+                        <Form.Label style={{paddingTop: "10px"}}>University:</Form.Label>
                         <Form.Group controlId="formName" >
                             <select {...register("university")}>
                                 <option disabled selected value="">Select Undergraduate University</option>
@@ -358,10 +407,10 @@ const FormComponent2 = () => {
                         <Form.Label style={{paddingTop: "20px"}}>University (Other):</Form.Label>
                         <Form.Group controlId="formName" >
 
-                            <input type="text" placeholder="Type in Other University" {...register("university(others)", {})} />
+                            <input type="text" placeholder="Type in University details" {...register("university(others)", {})} />
                         </Form.Group>
 
-                        <Form.Label style={{paddingTop: "20px"}}>University (Other):</Form.Label>
+                        <Form.Label style={{paddingTop: "20px"}}>Class of Degree:</Form.Label>
                         <Form.Group controlId="formName" >
 
                             {/* <input type="text" placeholder="Type in Other University" {...register("university(others)", {})} /> */}
@@ -378,7 +427,7 @@ const FormComponent2 = () => {
                         <Form.Label style={{paddingTop: "20px"}}>Course of Study:</Form.Label>
                         <Form.Group controlId="formName" >
 
-                            <input type="text" placeholder="course" {...register("course", {})} />
+                            <input type="text" placeholder="Type in Course" {...register("course", {})} />
                         </Form.Group>
 
                         <Form.Label style={{paddingTop: "20px"}}>Graduation Date:</Form.Label>
@@ -391,7 +440,7 @@ const FormComponent2 = () => {
                         {
                             selectDegree === "Doctor of Philosophy (PhD)" || "Masters " &&
 
-                            selectDegree !== "Undergraduate" &&
+                            selectDegree != "B.SC /B.A" &&
 
                             selectDegree !== "OND" &&
                             selectDegree !== "HND" &&
@@ -497,7 +546,7 @@ const FormComponent2 = () => {
                                     <input type="text" placeholder="Type in Other University" {...register("post_grad_university_others", {})} />
                                 </Form.Group>
                                 {/* post_grad_course */}
-                                <Form.Label style={{paddingTop: "20px"}}>Post Graduate Date:</Form.Label>
+                                <Form.Label style={{paddingTop: "20px"}}>Post Graduate Course:</Form.Label>
                                 <Form.Group controlId="formName" >
 
                                     <input type="text" placeholder="Type in Course"  {...register("post_grad_course", {})} />
@@ -530,13 +579,24 @@ const FormComponent2 = () => {
 
                     </>}
 
-                <div className={classes.GenderDOB}>
+                {/* <div className={classes.GenderDOB}> */}
+
+
 
                     <div className={classes.ButtonDiv}>
-                        <Button variant="success" type="submit" size="lg">
+{
+loading == "true"? 
+
+<Button disabled  variant="success" type="submit" size="lg">
+                            Submit
+                        </Button> : 
+
+
+                        <Button  variant="success" type="submit" size="lg">
                             Submit
                         </Button>
-                    </div>
+
+}
                 </div>
             </form>
         </div>

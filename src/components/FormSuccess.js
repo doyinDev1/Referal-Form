@@ -8,8 +8,8 @@ const FormSuccess = () => {
 
     
   const routeChange = () =>{ 
-    let path = `/`; 
-    navigate(path);
+    // let path = `/`; 
+    navigate(-1);
   }
 
   return (

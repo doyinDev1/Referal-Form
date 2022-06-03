@@ -11,8 +11,8 @@ function App() {
       
       <Routes>
         <Route exact path="/" element={<LoginForm />} />
-        <Route path="success" element={<RegistrationSuccess />} />
-        <Route path="refer" element={<Refer />} />
+        <Route exact path="/success" element={<RegistrationSuccess />} />
+        <Route exact path="/refer" element={<Refer />} />
 
       </Routes>
       <div><Toaster/></div>
