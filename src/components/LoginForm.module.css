@@ -53,6 +53,15 @@
     text-transform: uppercase;
 
 }
+.LoginDetails h1{
+    color: black;
+    text-align: center;
+    font-family: "Avenir";
+    padding: 0 10px;
+    font-size: 20px;
+    text-transform: uppercase;
+
+}
 
 
 @media only screen and (max-width: 600px) {

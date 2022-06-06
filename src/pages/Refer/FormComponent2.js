@@ -52,7 +52,7 @@ const FormComponent2 = () => {
     .post(`${Config.url.API_URL}/referral-apply`, data)
     .then((res) => {
         // console.log(res, "res")
-        if (res?.data?.error?.length >= 1) throw new Error(res?.data?.error[0]);
+        if (res?.data?.error?.length ) throw new Error(res?.data?.error[0]);
 
         toast.success('Registeration Completed');
         routeChange()
@@ -209,6 +209,8 @@ const FormComponent2 = () => {
                         <option value="Bauchi">Bauchi</option>
                         <option value="Bayelsa">Bayelsa</option>
                         <option value="Benue">Benue</option>
+                        <option value="Borno">Borno</option>
+
                         <option value="Cross Rivers">Cross Rivers</option>
                         <option value="Delta">Delta</option>
                         <option value="Ebonyi">Ebonyi</option>
@@ -251,6 +253,7 @@ const FormComponent2 = () => {
                         <option value="Bauchi">Bauchi</option>
                         <option value="Bayelsa">Bayelsa</option>
                         <option value="Benue">Benue</option>
+                        <option value="Borno">Borno</option>
                         <option value="Cross Rivers">Cross Rivers</option>
                         <option value="Delta">Delta</option>
                         <option value="Ebonyi">Ebonyi</option>

@@ -22,14 +22,14 @@ const LoginForm = () => {
                 <h1>Access Bank Entry Level Training Program - Tech</h1>
             </div>
             <div className={classes.LoginDetails}>
-                <h3>Please complete all the details on the form below and submit</h3>
+                <h1>Application Form has Closed</h1>
             </div>
             <div className={classes.LoginWrap}>
 
-                <div className={classes.LoginFormCard}>
+                {/* <div className={classes.LoginFormCard}>
                     <FormComponent />
-                </div>
-                <FormBottom />
+                </div> */}
+                {/* <FormBottom /> */}
             </div>
         </>
     )
