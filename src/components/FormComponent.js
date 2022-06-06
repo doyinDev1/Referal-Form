@@ -50,6 +50,7 @@ const FormComponent = () => {
     const [selectDegree, setSelectDegree] = useState(0);
     const [selectUni, setSelectUni] = useState(0);
     const [selectUni2, setSelectUni2] = useState(0);
+const [errorCatch, setErrorCatch = useState] = useState([])
 
     const navigate = useNavigate();
     // console.log(startDate, "1")
@@ -74,11 +75,14 @@ const FormComponent = () => {
                 // console.log(res.data.data.token);
             })
             .catch((err) => {
-                console.log(err, "err")
-                const errMsg = err?.response?.data?.message
-                    ? err
-                    : "Error";
-                toast.error("error");
+                // console.log([err], "error")
+
+                // console.log([err][0].message, "err")
+                // setErrorCatch({err})
+                const errMsg = [err]?.[0]?.message
+                    ? [err][0].message
+                    : "Kindly Fill in all Details";
+                toast.error(errMsg);
                 setLoading(false);
             });
 
@@ -86,8 +90,9 @@ const FormComponent = () => {
 
     return (
         <div>
-            {console.log(loading, "lo")}
-
+            {/* {console.log(loading, "lo")} */}
+            {/* {console.log(JSON.stringify(errorCatch, "errorlo"))} */}
+{/* {toast.error(JSON.stringify(errorCatch?.error))} */}
 
             <form onSubmit={handleSubmit(onSubmit)}>
 

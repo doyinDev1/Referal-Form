@@ -62,10 +62,10 @@ const FormComponent2 = () => {
     })
     .catch((err) => {
         console.log(err, "err")
-        const errMsg = err?.response?.data?.message
-            ? err
-            : "Error";
-        toast.error("error");
+        const errMsg = [err]?.[0]?.message
+        ? [err][0].message
+        : "Kindly Fill in all Details";
+        toast.error(errMsg);
         setLoading(false);
     });
 

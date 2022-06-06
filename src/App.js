@@ -4,6 +4,7 @@ import { Routes, Route, Link } from "react-router-dom";
 import RegistrationSuccess from './pages/RegistrationSuccess';
 import toast , {Toaster } from 'react-hot-toast'
 import Refer from './pages/Refer/Refer'
+import ChatwootWidget from './components/ChatwootWidget/ChatwootWidget'
 function App() {
   return (
     <div className="app">
@@ -16,6 +17,7 @@ function App() {
 
       </Routes>
       <div><Toaster/></div>
+      <ChatwootWidget/>
     </div>
   );
 }
